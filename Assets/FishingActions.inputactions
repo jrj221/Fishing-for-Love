@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "FishingActions",
+    "maps": [
+        {
+            "name": "Fishing",
+            "id": "510031ec-5dec-4277-bef3-5d1a12bf05ec",
+            "actions": [
+                {
+                    "name": "MoveUp",
+                    "type": "Button",
+                    "id": "cd674586-4cfc-4d00-ba46-546b43ec537d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3ab123d3-6615-4a04-b3f7-18daeb4dc682",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
