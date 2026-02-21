@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Vector3 = UnityEngine.Vector3;
 
 public class Fishing : MonoBehaviour
 {
+    #region References
     [SerializeField] private InputActionReference _affectionBarInput;
     [SerializeField] private SpriteRenderer _affectionBar;
     [SerializeField] private SpriteRenderer _gameBoard;
@@ -16,7 +15,9 @@ public class Fishing : MonoBehaviour
     [SerializeField] private float _affectionBarFallSpeed;
     [SerializeField] private float progressSpeed; // how fast the progress bar fills or depletes
     [SerializeField] private float _chooseHeartDestinationDelay;
-
+    #endregion
+    
+    #region Script Variables
     private bool _affectionBarIsMoving;
     private float _topBoardBounds;
     private float _bottomBoardBounds;
@@ -24,6 +25,7 @@ public class Fishing : MonoBehaviour
     private Vector3 _bottomHeartPosition;
     private Vector3 _heartDestination;
     private float _progress = 20;
+    #endregion
 
     private void OnEnable()
     {

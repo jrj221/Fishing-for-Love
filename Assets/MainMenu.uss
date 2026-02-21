@@ -1,0 +1,13 @@
+:root {
+}
+
+.button {
+    font-size: 25px;
+    width: 25%;
+    -unity-text-align: upper-center;
+    align-self: center;
+    align-content: auto;
+    justify-content: flex-start;
+    align-items: auto;
+    top: 25%;
+}
