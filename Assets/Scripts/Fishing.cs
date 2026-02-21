@@ -1,5 +1,8 @@
+using System.Collections;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Vector3 = UnityEngine.Vector3;
 
 public class Fishing : MonoBehaviour
 {
@@ -8,13 +11,18 @@ public class Fishing : MonoBehaviour
     [SerializeField] private SpriteRenderer _gameBoard;
     [SerializeField] private SpriteMask _progressBar;
     [SerializeField] private SpriteRenderer _heart;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float fallSpeed;
+    [SerializeField] private float _heartMoveSpeed;
+    [SerializeField] private float _affectionBarMoveSpeed;
+    [SerializeField] private float _affectionBarFallSpeed;
     [SerializeField] private float progressSpeed; // how fast the progress bar fills or depletes
+    [SerializeField] private float _chooseHeartDestinationDelay;
 
     private bool _affectionBarIsMoving;
     private float _topBoardBounds;
     private float _bottomBoardBounds;
+    private Vector3 _topHeartPosition;
+    private Vector3 _bottomHeartPosition;
+    private Vector3 _heartDestination;
     private float _progress = 20;
 
     private void OnEnable()
@@ -35,11 +43,20 @@ public class Fishing : MonoBehaviour
         Bounds affectionBarBounds = _affectionBar.bounds;
         _topBoardBounds = boardBounds.max.y - affectionBarBounds.extents.y;
         _bottomBoardBounds = boardBounds.min.y + affectionBarBounds.extents.y;
+        
+        Vector3 boardTopCenter = boardBounds.max - Vector3.right * boardBounds.extents.x;
+        Vector3 boardBottomCenter = boardBounds.min + Vector3.right * boardBounds.extents.x;
+        Bounds heartBounds = _heart.bounds;
+        _topHeartPosition = boardTopCenter - Vector3.up * heartBounds.extents.y;
+        _bottomHeartPosition = boardBottomCenter + Vector3.up * heartBounds.extents.y;
+        
+        InvokeRepeating(nameof(ChooseHeartDestination), 0, _chooseHeartDestinationDelay);
     }
 
     private void Update()
     {
         MoveAffectionBar();
+        MoveHeart();
         UpdateProgress();
         UpdateProgressBar();
     }
@@ -47,7 +64,7 @@ public class Fishing : MonoBehaviour
     private void UpdateProgressBar()
     {
         Vector3 currentScale = _progressBar.transform.localScale;
-        currentScale.y = 8 * (_progress / 100); // 8 is hard-coded and should be made into a variable or constant
+        currentScale.y = 9.5f * (_progress / 100); // 8 is hard-coded and should be made into a variable or constant
         _progressBar.transform.localScale = currentScale;
     }
 
@@ -64,17 +81,27 @@ public class Fishing : MonoBehaviour
         _progress = Mathf.Clamp(_progress, 0, 100);
     }
 
+    private void ChooseHeartDestination()
+    {
+        _heartDestination = Vector3.Lerp(_bottomHeartPosition, _topHeartPosition, Random.Range(0f, 1f));
+    }
+
+    private void MoveHeart()
+    {
+        _heart.transform.position = Vector3.MoveTowards(_heart.transform.position, _heartDestination, _heartMoveSpeed * Time.deltaTime);
+    }
+
     private void MoveAffectionBar()
     {
         if (_affectionBarIsMoving && _affectionBar.transform.position.y < _topBoardBounds)
         {
             _affectionBar.transform.position 
-                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y + Time.deltaTime * moveSpeed, _affectionBar.transform.position.z);
+                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y + Time.deltaTime * _affectionBarMoveSpeed, _affectionBar.transform.position.z);
         }
         else if (_affectionBar.transform.position.y > _bottomBoardBounds)
         {
             _affectionBar.transform.position 
-                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y - Time.deltaTime * fallSpeed, _affectionBar.transform.position.z);
+                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y - Time.deltaTime * _affectionBarFallSpeed, _affectionBar.transform.position.z);
         }
     }
     
