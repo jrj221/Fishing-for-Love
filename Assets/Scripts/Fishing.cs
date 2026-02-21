@@ -6,6 +6,7 @@ public class Fishing : MonoBehaviour
     [SerializeField] private InputActionReference _affectionBarInput;
     [SerializeField] private SpriteRenderer _affectionBar;
     [SerializeField] private SpriteRenderer _gameBoard;
+    [SerializeField] private SpriteMask _progressBar;
     [SerializeField] private SpriteRenderer _heart;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float fallSpeed;
@@ -14,7 +15,7 @@ public class Fishing : MonoBehaviour
     private bool _affectionBarIsMoving;
     private float _topBoardBounds;
     private float _bottomBoardBounds;
-    private float _progress = 0;
+    private float _progress = 20;
 
     private void OnEnable()
     {
@@ -45,7 +46,9 @@ public class Fishing : MonoBehaviour
 
     private void UpdateProgressBar()
     {
-        Debug.Log("Progress: " + Mathf.Round(_progress));
+        Vector3 currentScale = _progressBar.transform.localScale;
+        currentScale.y = 8 * (_progress / 100); // 8 is hard-coded and should be made into a variable or constant
+        _progressBar.transform.localScale = currentScale;
     }
 
     private void UpdateProgress()
