@@ -4,8 +4,14 @@ using UnityEngine.InputSystem;
 public class Fishing : MonoBehaviour
 {
     [SerializeField] private InputActionReference _affectionBarInput;
-    [SerializeField] private GameObject _affectionBar;
+    [SerializeField] private SpriteRenderer _affectionBar;
+    [SerializeField] private SpriteRenderer _gameBoard;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float fallSpeed;
+
     private bool _affectionBarIsMoving;
+    private float _topBoardBounds;
+    private float _bottomBoardBounds;
 
     private void OnEnable()
     {
@@ -19,11 +25,25 @@ public class Fishing : MonoBehaviour
         _affectionBarInput.action.Disable();
     }
 
+    private void Start()
+    {
+        Bounds boardBounds = _gameBoard.bounds;
+        Bounds affectionBarBounds = _affectionBar.bounds;
+        _topBoardBounds = boardBounds.max.y - affectionBarBounds.extents.y;
+        _bottomBoardBounds = boardBounds.min.y + affectionBarBounds.extents.y;
+    }
+
     private void Update()
     {
-        if (_affectionBarIsMoving)
+        if (_affectionBarIsMoving && _affectionBar.transform.position.y < _topBoardBounds)
         {
-            Debug.Log("Affection bar is moving");
+            _affectionBar.transform.position 
+                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y + Time.deltaTime * moveSpeed, _affectionBar.transform.position.z);
+        }
+        else if (_affectionBar.transform.position.y > _bottomBoardBounds)
+        {
+            _affectionBar.transform.position 
+                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y - Time.deltaTime * fallSpeed, _affectionBar.transform.position.z);
         }
     }
     
