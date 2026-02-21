@@ -3,22 +3,20 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
-public class GameUIManager : MonoBehaviour
+public class GameUIManager : UIManger
 {
-    private UIDocument _document;
     private Label _timer;
     private Label _heartCounter;
     private float _timeLeft = 60;
-    private float _heartCount = 0;
+    private float _heartCount;
     public static GameUIManager Instance { get; private set; }
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Instance = this;
-        _document = GetComponent<UIDocument>();
-        _timer = _document.rootVisualElement.Q<Label>("Timer");
-        _heartCounter = _document.rootVisualElement.Q<Label>("HeartCounter");
+        _timer = GetLabel("Timer");
+        _heartCounter = GetLabel("HeartCounter");
     }
 
     private void Start()
@@ -35,6 +33,10 @@ public class GameUIManager : MonoBehaviour
     private void Countdown()
     {
         _timeLeft -= Time.deltaTime;
+        if (_timeLeft <= 0)
+        {
+            GameManager.Instance.EndGame();
+        }
     }
 
     private void UpdateTimer()
@@ -48,13 +50,4 @@ public class GameUIManager : MonoBehaviour
         _heartCounter.text = "Hearts: " + _heartCount.ToString(CultureInfo.InvariantCulture);
     }
     
-    public void ShowUI()
-    {
-        _document.rootVisualElement.style.display = DisplayStyle.Flex;
-    }
-
-    public void HideUI()
-    {
-        _document.rootVisualElement.style.display = DisplayStyle.None;
-    }
 }

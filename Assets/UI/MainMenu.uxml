@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/MainMenu.uss?fileID=7433441132597879392&amp;guid=65eaca27e42c64174ae26953c75c6bec&amp;type=3#MainMenu"/>
     <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(192, 5, 5);">
-        <ui:Label text="Fishing for Love" name="Title" style="font-size: 177px; -unity-text-align: upper-center; top: 20%; -unity-font-definition: url(&quot;project://database/Assets/UI/Fonts/BonheurRoyale-Regular.ttf?fileID=12800000&amp;guid=aa7bccbb9f8f64e19ac4bfe5554927c7&amp;type=3#BonheurRoyale-Regular&quot;); -unity-font-style: normal; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 50px 50px 0 rgb(125, 15, 28);"/>
+        <ui:Label text="Fishing for Love" name="Title" style="font-size: 177px; -unity-text-align: upper-center; top: 20%; -unity-font-definition: url(&quot;project://database/Assets/UI/Fonts/BonheurRoyale-Regular.ttf?fileID=12800000&amp;guid=aa7bccbb9f8f64e19ac4bfe5554927c7&amp;type=3#BonheurRoyale-Regular&quot;); -unity-font-style: normal; -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); text-shadow: 50px 50px 0 rgb(0, 0, 0); color: rgb(255, 255, 255);"/>
         <ui:Button text="Start Game" name="StartButton" class="button"/>
     </ui:VisualElement>
 </ui:UXML>

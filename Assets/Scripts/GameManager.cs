@@ -14,4 +14,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         GameUIManager.Instance.ShowUI();
     }
+
+    public void EndGame()
+    {
+        GameUIManager.Instance.HideUI();
+        
+    }
 }

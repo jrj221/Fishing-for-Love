@@ -2,15 +2,15 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
-public class MainMenuManager : MonoBehaviour
+public class MainMenuManager : UIManger
 {
     private UIDocument _document;
     private Button _startButton;
     
-    private void Awake()
+    protected override void Awake()
     {
-        _document = GetComponent<UIDocument>();
-        _startButton = _document.rootVisualElement.Q<Button>("StartButton");
+        base.Awake();
+        _startButton = GetButton("StartButton");
     }
 
     private void OnEnable()
@@ -25,7 +25,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void StartGame(ClickEvent e)
     {
-        _document.rootVisualElement.style.display = DisplayStyle.None;
+        HideUI();
         GameManager.Instance.StartGame();
     }
 }
