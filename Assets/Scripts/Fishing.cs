@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class Fishing : MonoBehaviour
@@ -25,6 +28,7 @@ public class Fishing : MonoBehaviour
     private Vector3 _bottomHeartPosition;
     private Vector3 _heartDestination;
     private float _progress = 20;
+    private bool _betweenHearts;
     #endregion
 
     private void OnEnable()
@@ -57,6 +61,7 @@ public class Fishing : MonoBehaviour
 
     private void Update()
     {
+        if (_betweenHearts) return;
         MoveAffectionBar();
         MoveHeart();
         UpdateProgress();
@@ -81,6 +86,38 @@ public class Fishing : MonoBehaviour
             _progress -= progressSpeed * Time.deltaTime;
         }
         _progress = Mathf.Clamp(_progress, 0, 100);
+
+        if (_progress == 100)
+        {
+            HeartWon();
+        } else if (_progress == 0)
+        {
+            HeartLost();
+        }
+    }
+
+    private void HeartWon()
+    {
+        GameUIManager.Instance.IncrementHeartCounter();
+        _heart.sortingOrder = -10;
+        _betweenHearts = true;
+        Delay(2f, () => _betweenHearts = false);
+        Delay(2f, () => _heart.sortingOrder = 3);
+        Delay(2f, () => SetProgress(35)); // shorter wait between hearts, bonus to starting progress 
+    }
+
+    private void HeartLost()
+    {
+        _heart.sortingOrder = -10;
+        _betweenHearts = true;
+        Delay(4f, () => _betweenHearts = false);
+        Delay(4f, () => _heart.sortingOrder = 3);
+        Delay(4f, () => SetProgress(25));
+    }
+
+    private void SetProgress(float progress)
+    {
+        _progress = Mathf.Clamp(progress, 0, 100);
     }
 
     private void ChooseHeartDestination()
@@ -115,5 +152,16 @@ public class Fishing : MonoBehaviour
     private void CancelAffectionBarInput(InputAction.CallbackContext ctx)
     {
         _affectionBarIsMoving = false;
+    }
+
+    private void Delay(float delay, Action action)
+    {
+        StartCoroutine(DelayRoutine(delay, action));
+    }
+
+    private IEnumerator DelayRoutine(float time, Action callback)
+    {
+        yield return new WaitForSeconds(time);
+        callback();
     }
 }

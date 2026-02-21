@@ -2,12 +2,13 @@
 }
 
 .button {
-    font-size: 25px;
-    width: 25%;
+    font-size: 58px;
+    width: 35%;
     -unity-text-align: upper-center;
     align-self: center;
     align-content: auto;
     justify-content: flex-start;
     align-items: auto;
     top: 25%;
+    height: 10%;
 }

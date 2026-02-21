@@ -10,7 +10,7 @@ public class MainMenuManager : MonoBehaviour
     private void Awake()
     {
         _document = GetComponent<UIDocument>();
-        _startButton = _document.rootVisualElement.Q("StartButton") as Button;
+        _startButton = _document.rootVisualElement.Q<Button>("StartButton");
     }
 
     private void OnEnable()
