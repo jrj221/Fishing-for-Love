@@ -51,7 +51,7 @@ public class Fishing : MonoBehaviour
     private Vector3 _heartDestination;
     private float _progress = 20;
     private bool _betweenHearts;
-    private const float ProgressBarMaxScale = 9.5f;
+    private const float ProgressBarMaxScale = 15f;
     #endregion
 
     private void OnEnable()
