@@ -124,7 +124,8 @@ public class Fishing : MonoBehaviour
         GameUIManager.Instance.IncrementHeartCounter();
         _heart.sortingOrder = -10;
         _betweenHearts = true;
-        Delay(_wonHeartDelay, () =>
+        Debug.Log(Helpers.Instance);
+        Helpers.Instance.Delay(_wonHeartDelay, () =>
         {
             _betweenHearts = false;
             _heart.sortingOrder = 3;
@@ -136,7 +137,7 @@ public class Fishing : MonoBehaviour
     {
         _heart.sortingOrder = -10;
         _betweenHearts = true;
-        Delay(_lostHeartDelay, () =>
+        Helpers.Instance.Delay(_lostHeartDelay, () =>
         {
             _betweenHearts = false;
             _heart.sortingOrder = 3;
@@ -181,16 +182,5 @@ public class Fishing : MonoBehaviour
     private void CancelAffectionBarInput(InputAction.CallbackContext ctx)
     {
         _affectionBarIsMoving = false;
-    }
-
-    private void Delay(float delay, Action action)
-    {
-        StartCoroutine(DelayRoutine(delay, action));
-    }
-
-    private IEnumerator DelayRoutine(float time, Action callback)
-    {
-        yield return new WaitForSeconds(time);
-        callback();
     }
 }
