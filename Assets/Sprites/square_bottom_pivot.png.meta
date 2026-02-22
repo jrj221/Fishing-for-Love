@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b66eddd61379243c1b8042d15b2660df
+guid: b7b45779d9d824b129f39a9f167cde2f
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -100,15 +100,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: square
+      name: square_bottom_pivot
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 100
         height: 86
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      square: -1843197933104017171
+      square_bottom_pivot: -1843197933104017171
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

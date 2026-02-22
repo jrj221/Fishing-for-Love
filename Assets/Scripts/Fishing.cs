@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
@@ -16,12 +15,14 @@ public class Fishing : MonoBehaviour
     [SerializeField] private float _lostHeartDelay;
     #endregion
     
-    #region Affection Bar Serialized Fields
+    #region Hook and Affection Bar Serialized Fields
+    [FormerlySerializedAs("_affectionBarInput")]
     [Header("Affection Bar Serialized Fields")]
-    [SerializeField] private InputActionReference _affectionBarInput;
-    [SerializeField] private SpriteRenderer _affectionBar;
-    [SerializeField] private float _affectionBarMoveSpeed;
-    [SerializeField] private float _affectionBarFallSpeed;
+    [SerializeField] private InputActionReference _hookInput;
+    [SerializeField] private SpriteRenderer _hook;
+    [SerializeField] private SpriteRenderer _affectionBar; // child to hook, so it moves with it
+    [SerializeField] private float _hookMoveSpeed;
+    [SerializeField] private float _hookFallSpeed;
     #endregion 
     
     #region Heart Serialized Fields
@@ -43,9 +44,9 @@ public class Fishing : MonoBehaviour
     #endregion 
     
     #region Script Variables
-    private bool _affectionBarIsMoving;
-    private float _topBoardBounds;
-    private float _bottomBoardBounds;
+    private bool _hookIsMoving;
+    private float _topHookBounds;
+    private float _bottomHookBounds;
     private Vector3 _topHeartPosition;
     private Vector3 _bottomHeartPosition;
     private Vector3 _heartDestination;
@@ -56,22 +57,26 @@ public class Fishing : MonoBehaviour
 
     private void OnEnable()
     {
-        _affectionBarInput.action.Enable();
-        _affectionBarInput.action.started += StartAffectionBarInput;
-        _affectionBarInput.action.canceled += CancelAffectionBarInput;
+        _hookInput.action.Enable();
+        _hookInput.action.started += StartHookInput;
+        _hookInput.action.canceled += CancelHookInput;
     }
 
     private void OnDisable()
     {
-        _affectionBarInput.action.Disable();
+        _hookInput.action.Disable();
+        _hookInput.action.started -= StartHookInput;
+        _hookInput.action.canceled -= CancelHookInput;
     }
 
     private void Start()
     {
         Bounds boardBounds = _gameBoard.bounds;
         Bounds affectionBarBounds = _affectionBar.bounds;
-        _topBoardBounds = boardBounds.max.y - affectionBarBounds.extents.y;
-        _bottomBoardBounds = boardBounds.min.y + affectionBarBounds.extents.y;
+        _topHookBounds = boardBounds.max.y - affectionBarBounds.extents.y;
+        _bottomHookBounds = boardBounds.min.y + affectionBarBounds.extents.y;
+        Debug.DrawLine(new Vector3(5f, _bottomHookBounds, 10f), new Vector3(9f, _bottomHookBounds, 10f), Color.purple, 10f);
+        Debug.DrawLine(new Vector3(5f, _topHookBounds, 10f), new Vector3(9f, _topHookBounds, 10f), Color.purple, 10f);
         
         Vector3 boardTopCenter = boardBounds.max - Vector3.right * boardBounds.extents.x;
         Vector3 boardBottomCenter = boardBounds.min + Vector3.right * boardBounds.extents.x;
@@ -161,25 +166,25 @@ public class Fishing : MonoBehaviour
 
     private void MoveAffectionBar()
     {
-        if (_affectionBarIsMoving && _affectionBar.transform.position.y < _topBoardBounds)
+        if (_hookIsMoving && _affectionBar.transform.position.y < _topHookBounds)
         {
-            _affectionBar.transform.position 
-                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y + Time.deltaTime * _affectionBarMoveSpeed, _affectionBar.transform.position.z);
+            _hook.transform.position 
+                = new Vector3(_hook.transform.position.x, _hook.transform.position.y + Time.deltaTime * _hookMoveSpeed, _hook.transform.position.z);
         }
-        else if (_affectionBar.transform.position.y > _bottomBoardBounds)
+        else if (_affectionBar.transform.position.y > _bottomHookBounds)
         {
-            _affectionBar.transform.position 
-                = new Vector3(_affectionBar.transform.position.x, _affectionBar.transform.position.y - Time.deltaTime * _affectionBarFallSpeed, _affectionBar.transform.position.z);
+            _hook.transform.position 
+                = new Vector3(_hook.transform.position.x, _hook.transform.position.y - Time.deltaTime * _hookFallSpeed, _hook.transform.position.z);
         }
     }
     
-    private void StartAffectionBarInput(InputAction.CallbackContext ctx)
+    private void StartHookInput(InputAction.CallbackContext ctx)
     {
-        _affectionBarIsMoving = true;
+        _hookIsMoving = true;
     }
     
-    private void CancelAffectionBarInput(InputAction.CallbackContext ctx)
+    private void CancelHookInput(InputAction.CallbackContext ctx)
     {
-        _affectionBarIsMoving = false;
+        _hookIsMoving = false;
     }
 }
