@@ -4,28 +4,25 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class MainMenuManager : UIManger
 {
-    private UIDocument _document;
     private Button _startButton;
+    private EventCallback<ClickEvent> _startGameCallback;
+    public static MainMenuManager Instance { get; private set; }
     
     protected override void Awake()
     {
         base.Awake();
+        Instance = this;
+        _startGameCallback = (evt) => GameManager.Instance.StartGame();
         _startButton = GetElement<Button>("StartButton");
     }
 
     private void OnEnable()
     {
-        _startButton.RegisterCallback<ClickEvent>(StartGame);
+        _startButton.RegisterCallback(_startGameCallback);
     }
 
     private void OnDisable()
     {
-        _startButton.UnregisterCallback<ClickEvent>(StartGame);
-    }
-
-    private void StartGame(ClickEvent e)
-    {
-        HideUI();
-        GameManager.Instance.StartGame();
+        _startButton.UnregisterCallback(_startGameCallback);
     }
 }

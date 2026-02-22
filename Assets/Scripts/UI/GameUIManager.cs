@@ -9,7 +9,7 @@ public class GameUIManager : UIManger
     private Label _timer;
     private Label _heartCounter;
     private float _timeLeft;
-    private float _heartCount;
+    private int _heartCount;
     public static GameUIManager Instance { get; private set; }
     
     protected override void Awake()

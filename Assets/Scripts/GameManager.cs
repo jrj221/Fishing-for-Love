@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float _goodEndingMinHearts;
-    [SerializeField] private float _midEndingMinHearts;
+    [SerializeField] private int _goodEndingMinHearts;
+    [SerializeField] private int _midEndingMinHearts;
     public static GameManager Instance { get; private set; }
     private void Start()
     {
@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        MainMenuManager.Instance.HideUI();
         Time.timeScale = 1;
         GameUIManager.Instance.ShowUI();
     }
