@@ -21,13 +21,18 @@ public class UIManger : MonoBehaviour
         _document.rootVisualElement.style.display = DisplayStyle.None;
     }
 
-    protected Button GetButton(string elementName)
+    protected T GetElement<T>(string elementName) where T : VisualElement // equivalent of T extends VisualElement
     {
-        return _document.rootVisualElement.Q<Button>(elementName);
+        return _document.rootVisualElement.Q<T>(elementName);
+    }
+
+    protected void ShowElement(VisualElement element)
+    {
+        element.style.display = DisplayStyle.Flex;
     }
     
-    protected Label GetLabel(string elementName)
+    protected void HideElement(VisualElement element)
     {
-        return _document.rootVisualElement.Q<Label>(elementName);
+        element.style.display = DisplayStyle.None;
     }
 }

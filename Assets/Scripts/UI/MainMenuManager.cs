@@ -10,7 +10,7 @@ public class MainMenuManager : UIManger
     protected override void Awake()
     {
         base.Awake();
-        _startButton = GetButton("StartButton");
+        _startButton = GetElement<Button>("StartButton");
     }
 
     private void OnEnable()

@@ -119,6 +119,74 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &473981399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 473981400}
+  - component: {fileID: 473981401}
+  - component: {fileID: 473981402}
+  m_Layer: 0
+  m_Name: EndingUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &473981400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473981399}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1025761119}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &473981401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473981399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: d99f92b330c6643feab222d4b2751e57, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 6dde37f57c712493d901736d6f144f95, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!114 &473981402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473981399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d5ed5394ba04ce2b96ae8dd9b2475a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EndingUIManager
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,6 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b405f46de14684ec29fe950121b28644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerUI
+  _gameLength: 15
 --- !u!114 &543710378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e3ee9964a834f8fa6c61f634576cf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  _goodEndingMinHearts: 2
+  _midEndingMinHearts: 1
 --- !u!1 &610844810
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +773,7 @@ Transform:
   - {fileID: 581409433}
   - {fileID: 1548512889}
   - {fileID: 543710376}
+  - {fileID: 473981400}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1172675007
@@ -855,16 +927,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b23e2af8ec114258a4d51c44884cc94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fishing
+  _gameBoard: {fileID: 2000239328}
+  _wonHeartDelay: 1
+  _lostHeartDelay: 3
   _affectionBarInput: {fileID: -6612855984856705697, guid: c65f1ace064c840e1958b1b46abc8c57, type: 3}
   _affectionBar: {fileID: 1784939073}
-  _gameBoard: {fileID: 2000239328}
-  _progressBar: {fileID: 610844812}
-  _heart: {fileID: 1020686968}
-  _heartMoveSpeed: 2
   _affectionBarMoveSpeed: 5
   _affectionBarFallSpeed: 3
-  progressSpeed: 10
+  _heart: {fileID: 1020686968}
+  _heartMoveSpeed: 2
   _chooseHeartDestinationDelay: 0.7
+  _progressBar: {fileID: 610844812}
+  progressSpeed: 10
+  _wonHeartInitialProgress: 25
+  _lostHeartInitialProgress: 15
 --- !u!4 &1351693659
 Transform:
   m_ObjectHideFlags: 0

@@ -7,18 +7,40 @@ using Vector3 = UnityEngine.Vector3;
 
 public class Fishing : MonoBehaviour
 {
-    #region References
+    #region Misc Serialized Fields
+    [Header("Misc Serialized Fields")]
+    [SerializeField] private SpriteRenderer _gameBoard;
+    /// <summary>How long the delay is before starting a new heart-capture round after winning the previous heart</summary>
+    [SerializeField] private float _wonHeartDelay; 
+    /// <summary>How long the delay is before starting a new heart-capture round after losing the previous heart</summary>
+    [SerializeField] private float _lostHeartDelay;
+    #endregion
+    
+    #region Affection Bar Serialized Fields
+    [Header("Affection Bar Serialized Fields")]
     [SerializeField] private InputActionReference _affectionBarInput;
     [SerializeField] private SpriteRenderer _affectionBar;
-    [SerializeField] private SpriteRenderer _gameBoard;
-    [SerializeField] private SpriteMask _progressBar;
-    [SerializeField] private SpriteRenderer _heart;
-    [SerializeField] private float _heartMoveSpeed;
     [SerializeField] private float _affectionBarMoveSpeed;
     [SerializeField] private float _affectionBarFallSpeed;
-    [SerializeField] private float progressSpeed; // how fast the progress bar fills or depletes
+    #endregion 
+    
+    #region Heart Serialized Fields
+    [Header("Heart Serialized Fields")]
+    [SerializeField] private SpriteRenderer _heart;
+    [SerializeField] private float _heartMoveSpeed;
     [SerializeField] private float _chooseHeartDestinationDelay;
     #endregion
+    
+    #region Progress Bar Serialized Fields
+    [Header("Progress Bar Serialized Fields")]
+    [SerializeField] private SpriteMask _progressBar;
+    /// <summary>How fast the progress bar fills or depletes</summary>
+    [SerializeField] private float progressSpeed;
+    /// <summary>How much initial progress you have upon starting a new heart-capture round after winning the previous heart</summary>
+    [SerializeField] private float _wonHeartInitialProgress;
+    /// <summary>How much initial progress you have upon starting a new heart-capture round after losing the previous heart</summary>
+    [SerializeField] private float _lostHeartInitialProgress;
+    #endregion 
     
     #region Script Variables
     private bool _affectionBarIsMoving;
@@ -29,6 +51,7 @@ public class Fishing : MonoBehaviour
     private Vector3 _heartDestination;
     private float _progress = 20;
     private bool _betweenHearts;
+    private const float ProgressBarMaxScale = 9.5f;
     #endregion
 
     private void OnEnable()
@@ -61,7 +84,7 @@ public class Fishing : MonoBehaviour
 
     private void Update()
     {
-        if (_betweenHearts) return;
+        if (_betweenHearts) return; // game effectively pauses during delay between hearts
         MoveAffectionBar();
         MoveHeart();
         UpdateProgress();
@@ -71,7 +94,7 @@ public class Fishing : MonoBehaviour
     private void UpdateProgressBar()
     {
         Vector3 currentScale = _progressBar.transform.localScale;
-        currentScale.y = 9.5f * (_progress / 100); // 8 is hard-coded and should be made into a variable or constant
+        currentScale.y = ProgressBarMaxScale * (_progress / 100);
         _progressBar.transform.localScale = currentScale;
     }
 
@@ -87,10 +110,10 @@ public class Fishing : MonoBehaviour
         }
         _progress = Mathf.Clamp(_progress, 0, 100);
 
-        if (_progress == 100)
+        if (Mathf.Approximately(_progress, 100))
         {
             HeartWon();
-        } else if (_progress == 0)
+        } else if (Mathf.Approximately(_progress, 0))
         {
             HeartLost();
         }
@@ -101,18 +124,24 @@ public class Fishing : MonoBehaviour
         GameUIManager.Instance.IncrementHeartCounter();
         _heart.sortingOrder = -10;
         _betweenHearts = true;
-        Delay(2f, () => _betweenHearts = false);
-        Delay(2f, () => _heart.sortingOrder = 3);
-        Delay(2f, () => SetProgress(35)); // shorter wait between hearts, bonus to starting progress 
+        Delay(_wonHeartDelay, () =>
+        {
+            _betweenHearts = false;
+            _heart.sortingOrder = 3;
+            SetProgress(_wonHeartInitialProgress);
+        });
     }
 
     private void HeartLost()
     {
         _heart.sortingOrder = -10;
         _betweenHearts = true;
-        Delay(4f, () => _betweenHearts = false);
-        Delay(4f, () => _heart.sortingOrder = 3);
-        Delay(4f, () => SetProgress(25));
+        Delay(_lostHeartDelay, () =>
+        {
+            _betweenHearts = false;
+            _heart.sortingOrder = 3;
+            SetProgress(_lostHeartInitialProgress);
+        });
     }
 
     private void SetProgress(float progress)

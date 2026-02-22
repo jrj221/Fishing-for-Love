@@ -5,9 +5,10 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class GameUIManager : UIManger
 {
+    [SerializeField] private float _gameLength;
     private Label _timer;
     private Label _heartCounter;
-    private float _timeLeft = 60;
+    private float _timeLeft;
     private float _heartCount;
     public static GameUIManager Instance { get; private set; }
     
@@ -15,8 +16,9 @@ public class GameUIManager : UIManger
     {
         base.Awake();
         Instance = this;
-        _timer = GetLabel("Timer");
-        _heartCounter = GetLabel("HeartCounter");
+        _timer = GetElement<Label>("Timer");
+        _heartCounter = GetElement<Label>("HeartCounter");
+        _timeLeft = _gameLength;
     }
 
     private void Start()
@@ -35,7 +37,7 @@ public class GameUIManager : UIManger
         _timeLeft -= Time.deltaTime;
         if (_timeLeft <= 0)
         {
-            GameManager.Instance.EndGame();
+            GameManager.Instance.EndGame(_heartCount);
         }
     }
 

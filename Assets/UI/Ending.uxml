@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd"
->
-    
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Ending.uss?fileID=7433441132597879392&amp;guid=3b00efe0d284d412791ac9937f40ff78&amp;type=3"/>
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:Image name="GoodEnding" source="project://database/Assets/Sprites/good_ending.png?fileID=-2569231240082154565&amp;guid=5b0350c0a953b4bb4995556b3d4faf94&amp;type=3#good_ending_0" enabled="false" style="width: 100%; height: 100%; display: none; opacity: 1;"/>
+        <ui:Image name="MidEnding" source="project://database/Assets/Sprites/bad_ending.png?fileID=-4288641510789964588&amp;guid=7289177a0e24a48669e324d45f30b553&amp;type=3#bad_ending_0" enabled="false" style="width: 100%; height: 100%; visibility: visible; display: none; opacity: 1;"/>
+        <ui:Image name="BadEnding" source="project://database/Assets/Sprites/bad_ending.png?fileID=-4288641510789964588&amp;guid=7289177a0e24a48669e324d45f30b553&amp;type=3#bad_ending_0" enabled="false" style="width: 100%; height: 100%; display: none; opacity: 1;"/>
+    </ui:VisualElement>
 </ui:UXML>
