@@ -54,7 +54,7 @@ public class Fishing : MonoBehaviour
     private bool _betweenHearts;
     private const float ProgressBarMaxScale = 15f;
     #endregion
-
+    
     private void OnEnable()
     {
         _hookInput.action.Enable();
