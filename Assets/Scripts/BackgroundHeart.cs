@@ -5,23 +5,38 @@ using UnityEngine;
 public class BackgroundHeart : MonoBehaviour
 {
     [SerializeField] private float animationTime;
+    /// <summary>Heart has a 1 in chanceToFade chance to fade in or out every frame it isn't currently fading</summary>
+    [SerializeField] private int chanceToFade;
     private SpriteRenderer _heart;
     private bool _inAnimation;
-    private bool _visible;
+    private bool _isVisible;
 
     private void Awake()
     {
         _heart = GetComponent<SpriteRenderer>();
     }
 
+    private void Start()
+    {
+        InitializeHeartVisibility();
+    }
+
+    private void InitializeHeartVisibility()
+    {
+        _isVisible = Random.Range(0, 3) == 0; // about a quarter of them should spawn visible
+        Color color = _heart.color;
+        color.a = _isVisible ? 1 : 0;
+        _heart.color = color;
+    }
+
     private void Update()
     {
         if (_inAnimation) return;
-        if (Random.Range(0, 300) != 0) return; 
+        if (Random.Range(0, chanceToFade) != 0) return; 
         Debug.Log("Lucky");
         // good chance it happens about every 5 seconds. FPS dependent
         _inAnimation = true;
-        StartCoroutine(_visible ? FadeOut(animationTime) : FadeIn(animationTime));
+        StartCoroutine(_isVisible ? FadeOut(animationTime) : FadeIn(animationTime));
     }
     
     private IEnumerator FadeOut(float time)
@@ -33,7 +48,7 @@ public class BackgroundHeart : MonoBehaviour
             _heart.color = color;
             yield return new WaitForSeconds(time / 101);
         }
-        _visible = false;
+        _isVisible = false;
         _inAnimation = false;
     }
     
@@ -46,7 +61,7 @@ public class BackgroundHeart : MonoBehaviour
             _heart.color = color;
             yield return new WaitForSeconds(time / 101);
         }
-        _visible = true;
+        _isVisible = true;
         _inAnimation = false;
     }
 }
