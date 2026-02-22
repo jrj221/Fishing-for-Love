@@ -49,7 +49,7 @@ public class GameUIManager : UIManger
     public void IncrementHeartCounter()
     {
         _heartCount++;
-        _heartCounter.text = "Hearts: " + _heartCount.ToString(CultureInfo.InvariantCulture);
+        _heartCounter.text = _heartCount.ToString(CultureInfo.InvariantCulture);
     }
     
 }

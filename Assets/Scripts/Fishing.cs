@@ -124,7 +124,6 @@ public class Fishing : MonoBehaviour
         GameUIManager.Instance.IncrementHeartCounter();
         _heart.sortingOrder = -10;
         _betweenHearts = true;
-        Debug.Log(Helpers.Instance);
         Helpers.Instance.Delay(_wonHeartDelay, () =>
         {
             _betweenHearts = false;
