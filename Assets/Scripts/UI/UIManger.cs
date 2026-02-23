@@ -1,15 +1,28 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(UIDocument))]
 public class UIManger : MonoBehaviour
 {
     private UIDocument _document;
+    private EventCallback<ClickEvent> _playButtonClick;
 
     protected virtual void Awake()
     {
         _document = GetComponent<UIDocument>();
+        _playButtonClick = (evt) => MusicManager.Instance.PlayClick();
+    }
+
+    protected virtual void OnEnable()
+    {
+        _document.rootVisualElement.RegisterCallback(_playButtonClick);
+    }
+    
+    protected virtual void OnDisable()
+    {
+        _document.rootVisualElement.UnregisterCallback(_playButtonClick);
     }
 
     public void ShowUI()

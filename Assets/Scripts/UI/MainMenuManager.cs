@@ -16,7 +16,10 @@ public class MainMenuManager : UIManger
     {
         base.Awake();
         Instance = this;
-        _startGameCallback = (evt) => GameManager.Instance.StartGame();
+        _startGameCallback = (evt) =>
+        {
+            GameManager.Instance.StartGame();
+        };
         _title = GetElement<Label>("Title");
         _tutorialTitle = GetElement<Label>("TutorialTitle");
         _tutorialText = GetElement<Label>("TutorialText");
@@ -35,14 +38,16 @@ public class MainMenuManager : UIManger
                              "Capture as many as possible before time runs out!";
     }
     
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _startButton.RegisterCallback(_startGameCallback);
         _tutorialButton.RegisterCallback<ClickEvent>(Tutorial);
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         _startButton.UnregisterCallback(_startGameCallback);
         _tutorialButton.UnregisterCallback<ClickEvent>(Tutorial);
     }
