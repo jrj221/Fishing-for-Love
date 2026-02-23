@@ -20,12 +20,13 @@ public class GameUIManager : UIManger
         _timer = GetElement<Label>("Timer");
         _heartCounter = GetElement<Label>("HeartCounter");
         _endNotice = GetElement<Label>("EndNotice");
-        _timeLeft = _gameLength;
+        ResetTimeLeft();
     }
 
     private void Start()
     {
         HideUI();
+        HideElement(_endNotice);
     }
 
     private void Update()
@@ -35,12 +36,18 @@ public class GameUIManager : UIManger
         UpdateTimer();
     }
 
+    public void ResetTimeLeft()
+    {
+        _timeLeft = _gameLength;
+    }
+
     private void Countdown()
     {
         _timeLeft -= Time.deltaTime;
         if (_timeLeft <= 0)
         {
             ShowElement(_endNotice);
+            Helpers.Instance.Delay(3f, () => { HideElement(_endNotice); });
             GameManager.Instance.EndGame(_heartCount);
         }
     }
@@ -54,6 +61,12 @@ public class GameUIManager : UIManger
     {
         _heartCount++;
         _heartCounter.text = _heartCount.ToString(CultureInfo.InvariantCulture);
+    }
+
+    public void ResetHeartCounter()
+    {
+        _heartCount = 0;
+        _heartCounter.text = "0";
     }
     
 }

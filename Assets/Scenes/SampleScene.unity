@@ -884,7 +884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b405f46de14684ec29fe950121b28644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerUI
-  _gameLength: 30
+  _gameLength: 10
 --- !u!114 &543710378
 MonoBehaviour:
   m_ObjectHideFlags: 0

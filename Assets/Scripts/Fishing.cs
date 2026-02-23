@@ -119,7 +119,7 @@ public class Fishing : MonoBehaviour
         });
     }
 
-    private void SetProgress(float progress)
+    public void SetProgress(float progress)
     {
         _progress = Mathf.Clamp(progress, 0, 100);
     }

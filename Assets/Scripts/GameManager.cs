@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private int _goodEndingMinHearts;
     [SerializeField] private int _midEndingMinHearts;
+    [SerializeField] private Fishing fishingGame;
     public bool GameIsOver { get; private set; }
     public static GameManager Instance { get; private set; }
     
@@ -20,10 +21,22 @@ public class GameManager : MonoBehaviour
         GameUIManager.Instance.ShowUI();
     }
 
+    public void RestartGame()
+    {
+        GameIsOver = false;
+        EndingUIManager.Instance.HideUI();
+        EndingUIManager.Instance.HideElements();
+        GameUIManager.Instance.ResetTimeLeft();
+        fishingGame.SetProgress(20f);
+        Time.timeScale = 1;
+        GameUIManager.Instance.ShowUI();
+        GameUIManager.Instance.ResetHeartCounter();
+    }
+
     public void EndGame(int heartCount)
     {
         Time.timeScale = 0;
-        GameIsOver = true;
+        GameIsOver = true; 
         // Delayed so you see the Time's Up message for a second
         Helpers.Instance.Delay(3f, () =>
         {
