@@ -28,8 +28,8 @@ public class Fishing : MonoBehaviour
     #region Progress Bar Serialized Fields
     [Header("Progress Bar Serialized Fields")]
     [SerializeField] private SpriteMask _progressBar;
-    /// <summary>How fast the progress bar fills or depletes</summary>
-    [SerializeField] private float progressSpeed;
+    [SerializeField] private float progressFillSpeed;
+    [SerializeField] private float progressDepleteSpeed;
     /// <summary>How much initial progress you have upon starting a new heart-capture round after winning the previous heart</summary>
     [SerializeField] private float _wonHeartInitialProgress;
     /// <summary>How much initial progress you have upon starting a new heart-capture round after losing the previous heart</summary>
@@ -89,11 +89,11 @@ public class Fishing : MonoBehaviour
     {
         if (_affectionBar.bounds.Intersects(_gameplayHeart.Bounds))
         {
-            _progress += progressSpeed * Time.deltaTime;
+            _progress += progressFillSpeed * Time.deltaTime;
         }
         else
         {
-            _progress -= progressSpeed * Time.deltaTime;
+            _progress -= progressDepleteSpeed * Time.deltaTime;
         }
         SetProgress(_progress);
 
