@@ -2,9 +2,15 @@
     <Style src="project://database/Assets/UI/Stylesheets/MainMenu.uss?fileID=7433441132597879392&amp;guid=65eaca27e42c64174ae26953c75c6bec&amp;type=3#MainMenu"/>
     <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(192, 5, 5);">
         <ui:Label text="Fishing for Love" name="Title" class="title" style="display: flex;"/>
-        <ui:Label text="How to Play" name="TutorialTitle" class="title"/>
-        <ui:Label text="You are a mere fisherman, trying to woo the girl of your dreams by Fishing for Love in the Sea of Hearts. Get enough, and you may be successful in winning her over. Hold SPACE to reel in your hook, otherwise it will fall on it&apos;s own. Keep your hook on a heart for long enough and you&apos;ll capture it. Capture as many as possible before time runs out!" enable-rich-text="true" name="TutorialText" style="font-size: 35px; width: 85%; height: 8px; text-overflow: clip; white-space: normal; align-self: center; -unity-font-definition: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=f4227ae4420e442a6890bb67cd94a0e6&amp;type=3#NotInter-Regular&quot;); color: rgb(255, 255, 255); margin-top: 250px; -unity-text-align: upper-center;"/>
+        <ui:Label text="How to Play" name="TutorialTitle" class="title" style="display: flex;"/>
+        <ui:Label text="You are a mere fisherman, trying to woo the girl of your dreams by Fishing for Love in the Sea of Hearts. Get enough, and you may be successful in winning her over. Hold SPACE to reel in your hook, otherwise it will fall on it&apos;s own. Keep your hook on a heart for long enough and you&apos;ll capture it. Capture as many as possible before time runs out!" enable-rich-text="true" name="TutorialText" style="font-size: 35px; width: 85%; height: 8px; text-overflow: clip; white-space: normal; align-self: center; -unity-font-definition: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=f4227ae4420e442a6890bb67cd94a0e6&amp;type=3#NotInter-Regular&quot;); color: rgb(255, 255, 255); margin-top: 250px; -unity-text-align: upper-center; display: flex;"/>
         <ui:Button text="Start Game" name="StartButton" class="button" style="display: flex;"/>
         <ui:Button text="How to Play" name="TutorialButton" class="button" style="margin-top: 31px; display: flex;"/>
+        <ui:Label text="Choose Difficulty" name="DifficultySelectTitle" class="title"/>
+        <ui:VisualElement name="Difficulties" style="flex-grow: 1; flex-direction: row; position: relative; width: auto; align-self: center; margin-left: 111px; height: 1012px; margin-bottom: -32px;">
+            <ui:Button text="Easy" name="EasyDifficultyButton" class="button difficultyButtons"/>
+            <ui:Button text="Medium" name="MediumDifficultyButton" class="button difficultyButtons"/>
+            <ui:Button text="Hard" name="HardDifficultyButton" class="button difficultyButtons"/>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

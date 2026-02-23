@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class GameUIManager : UIManger
 {
-    [SerializeField] private float _gameLength;
+    public float GameLength { private get; set; }
     [SerializeField] private SpriteRenderer _hook;
     [SerializeField] private SpriteRenderer _heart;
     [SerializeField] private SpriteRenderer _progressBar;
@@ -45,7 +45,7 @@ public class GameUIManager : UIManger
 
     public void ResetTimeLeft()
     {
-        _timeLeft = _gameLength;
+        _timeLeft = GameLength;
     }
 
     private void Countdown()

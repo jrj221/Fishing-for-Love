@@ -3,8 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class GameplayHeart : MonoBehaviour
 {
-    [SerializeField] private float _heartMoveSpeed;
-    [SerializeField] private float _chooseHeartDestinationDelay;
+    public float HeartMoveSpeed { private get; set; }
+    public float ChooseHeartDestinationDelay { private get; set; }
     [SerializeField] private SpriteRenderer _gameBoard;
     private SpriteRenderer _heart;
     private Vector3 _topHeartPosition;
@@ -26,7 +26,7 @@ public class GameplayHeart : MonoBehaviour
         _topHeartPosition = boardTopCenter - Vector3.up * heartBounds.extents.y;
         _bottomHeartPosition = boardBottomCenter + Vector3.up * heartBounds.extents.y;
         
-        InvokeRepeating(nameof(ChooseHeartDestination), 0, _chooseHeartDestinationDelay);
+        InvokeRepeating(nameof(ChooseHeartDestination), 0, ChooseHeartDestinationDelay);
     }
 
     private void Update()
@@ -57,7 +57,7 @@ public class GameplayHeart : MonoBehaviour
 
     private void MoveHeart()
     {
-        _heart.transform.position = Vector3.MoveTowards(_heart.transform.position, _heartDestination, _heartMoveSpeed * Time.deltaTime);
+        _heart.transform.position = Vector3.MoveTowards(_heart.transform.position, _heartDestination, HeartMoveSpeed * Time.deltaTime);
     }
 
     public void HideHeart()
