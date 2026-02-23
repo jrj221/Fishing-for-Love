@@ -27,10 +27,17 @@ public class BackgroundHeart : MonoBehaviour
         _heart.transform.localScale = new Vector3(7 * sizeMultiplier, 7 * sizeMultiplier, 1);
     }
 
+    private void ApplyRandomRotation()
+    {
+        float rotation = Random.Range(-20f, 20f);
+        _heart.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+    }
+
     private void InitializeHeart()
     {
-        // Initialize size
+        // Initialize size and rotation
         ApplyRandomSize();
+        ApplyRandomRotation();
         
         // Initialize visibility
         _isVisible = Random.Range(0, 3) == 0; // about a quarter of them should spawn visible
@@ -57,6 +64,7 @@ public class BackgroundHeart : MonoBehaviour
             yield return new WaitForSeconds(time / 101);
         }
         ApplyRandomSize(); // So when it fades back in it appears to be a different heart
+        ApplyRandomRotation();
         _isVisible = false;
         _inAnimation = false;
     }
