@@ -86,10 +86,12 @@ public class Fishing : MonoBehaviour
     {
         if (_affectionBar.bounds.Intersects(_gameplayHeart.Bounds))
         {
+            MusicManager.Instance.UnmuteProgressBubbles();
             _progress += progressFillSpeed * Time.deltaTime;
         }
         else
         {
+            MusicManager.Instance.MuteProgressBubbles();
             _progress -= progressDepleteSpeed * Time.deltaTime;
         }
         SetProgress(_progress);
@@ -107,6 +109,7 @@ public class Fishing : MonoBehaviour
     private void HeartRoundOver(bool wonHeart)
     {
         if (wonHeart) GameUIManager.Instance.IncrementHeartCounter();
+        MusicManager.Instance.MuteProgressBubbles();
         _gameplayHeart.HideHeart();
         _betweenHearts = true;
         Helpers.Instance.Delay(wonHeart ? _wonHeartDelay : _lostHeartDelay, () =>
