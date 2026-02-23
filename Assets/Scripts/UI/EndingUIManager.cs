@@ -33,14 +33,14 @@ public class EndingUIManager : UIManger
     {
         ShowUI();
         ApplyEndingText(ending, heartCount);
-        ShowElement(_heartCountNotice);
-        ShowElement(_endingDesc);
+        ElementFadeIn(_heartCountNotice, 2f);
+        ElementFadeIn(_endingDesc, 2f);
         _ending = GetElement<Image>(ending + "Ending");
         Helpers.Instance.Delay(5f, () =>
         {
-            HideElement(_heartCountNotice);
-            HideElement(_endingDesc);
-            ShowElement(_ending);
+            ElementFadeOut(_heartCountNotice, 2f);
+            ElementFadeOut(_endingDesc, 2f);
+            Helpers.Instance.Delay(2f, () => ElementFadeIn(_ending, 2f));
         });
     }
     

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,5 +35,37 @@ public class UIManger : MonoBehaviour
     protected void HideElement(VisualElement element)
     {
         element.style.display = DisplayStyle.None;
+    }
+
+    protected void ElementFadeOut<T>(T element, float time) where T : VisualElement
+    {
+        StartCoroutine(ElementFadeOutRoutine(element, time));
+    }
+    
+    private IEnumerator ElementFadeOutRoutine<T>(T element, float time) where T : VisualElement
+    {
+        element.style.opacity = 1f; // make sure it's fully opaque to start
+        for (float i = 100; i > -1; i--)
+        {
+            element.style.opacity = i / 100f;
+            yield return new WaitForSecondsRealtime(time / 101);
+        }
+        HideElement(element);
+    }
+    
+    protected void ElementFadeIn<T>(T element, float time) where T  : VisualElement
+    {
+        StartCoroutine(ElementFadeInRoutine(element, time));
+    }
+
+    private IEnumerator ElementFadeInRoutine<T>(T element, float time) where T : VisualElement
+    {
+        ShowElement(element);
+        element.style.opacity = 0f; // make sure it's fully transparent to start
+        for (float i = 0; i < 101; i++)
+        {
+            element.style.opacity = i / 100f;
+            yield return new WaitForSecondsRealtime(time / 101);
+        }
     }
 }
