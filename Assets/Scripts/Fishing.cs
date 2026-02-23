@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
 
 public class Fishing : MonoBehaviour
@@ -9,6 +8,7 @@ public class Fishing : MonoBehaviour
     #region Misc Serialized Fields
     [Header("Misc Serialized Fields")]
     [SerializeField] private SpriteRenderer _gameBoard;
+    [SerializeField] private GameplayHeart _gameplayHeart;
     /// <summary>How long the delay is before starting a new heart-capture round after winning the previous heart</summary>
     [SerializeField] private float _wonHeartDelay; 
     /// <summary>How long the delay is before starting a new heart-capture round after losing the previous heart</summary>
@@ -25,13 +25,6 @@ public class Fishing : MonoBehaviour
     [SerializeField] private float _hookFallSpeed;
     #endregion 
     
-    #region Heart Serialized Fields
-    [Header("Heart Serialized Fields")]
-    [SerializeField] private SpriteRenderer _heart;
-    [SerializeField] private float _heartMoveSpeed;
-    [SerializeField] private float _chooseHeartDestinationDelay;
-    #endregion
-    
     #region Progress Bar Serialized Fields
     [Header("Progress Bar Serialized Fields")]
     [SerializeField] private SpriteMask _progressBar;
@@ -47,9 +40,6 @@ public class Fishing : MonoBehaviour
     private bool _hookIsMoving;
     private float _topHookBounds;
     private float _bottomHookBounds;
-    private Vector3 _topHeartPosition;
-    private Vector3 _bottomHeartPosition;
-    private Vector3 _heartDestination;
     private float _progress = 20;
     private bool _betweenHearts;
     private const float ProgressBarMaxScale = 15f;
@@ -75,23 +65,15 @@ public class Fishing : MonoBehaviour
         Bounds affectionBarBounds = _affectionBar.bounds;
         _topHookBounds = boardBounds.max.y - affectionBarBounds.extents.y;
         _bottomHookBounds = boardBounds.min.y + affectionBarBounds.extents.y;
-        Debug.DrawLine(new Vector3(5f, _bottomHookBounds, 10f), new Vector3(9f, _bottomHookBounds, 10f), Color.purple, 10f);
-        Debug.DrawLine(new Vector3(5f, _topHookBounds, 10f), new Vector3(9f, _topHookBounds, 10f), Color.purple, 10f);
         
-        Vector3 boardTopCenter = boardBounds.max - Vector3.right * boardBounds.extents.x;
-        Vector3 boardBottomCenter = boardBounds.min + Vector3.right * boardBounds.extents.x;
-        Bounds heartBounds = _heart.bounds;
-        _topHeartPosition = boardTopCenter - Vector3.up * heartBounds.extents.y;
-        _bottomHeartPosition = boardBottomCenter + Vector3.up * heartBounds.extents.y;
-        
-        InvokeRepeating(nameof(ChooseHeartDestination), 0, _chooseHeartDestinationDelay);
+        // Debug.DrawLine(new Vector3(5f, _bottomHookBounds, 10f), new Vector3(9f, _bottomHookBounds, 10f), Color.purple, 10f);
+        // Debug.DrawLine(new Vector3(5f, _topHookBounds, 10f), new Vector3(9f, _topHookBounds, 10f), Color.purple, 10f);
     }
-
+    
     private void Update()
     {
         if (_betweenHearts) return; // game effectively pauses during delay between hearts
         MoveAffectionBar();
-        MoveHeart();
         UpdateProgress();
         UpdateProgressBar();
     }
@@ -105,7 +87,7 @@ public class Fishing : MonoBehaviour
 
     private void UpdateProgress()
     {
-        if (_affectionBar.bounds.Intersects(_heart.bounds))
+        if (_affectionBar.bounds.Intersects(_gameplayHeart.Bounds))
         {
             _progress += progressSpeed * Time.deltaTime;
         }
@@ -113,7 +95,7 @@ public class Fishing : MonoBehaviour
         {
             _progress -= progressSpeed * Time.deltaTime;
         }
-        _progress = Mathf.Clamp(_progress, 0, 100);
+        SetProgress(_progress);
 
         if (Mathf.Approximately(_progress, 100))
         {
@@ -127,24 +109,24 @@ public class Fishing : MonoBehaviour
     private void HeartWon()
     {
         GameUIManager.Instance.IncrementHeartCounter();
-        _heart.sortingOrder = -10;
+        _gameplayHeart.HideHeart();
         _betweenHearts = true;
         Helpers.Instance.Delay(_wonHeartDelay, () =>
         {
             _betweenHearts = false;
-            _heart.sortingOrder = 3;
+            _gameplayHeart.ShowHeart();
             SetProgress(_wonHeartInitialProgress);
         });
     }
 
     private void HeartLost()
     {
-        _heart.sortingOrder = -10;
+        _gameplayHeart.HideHeart();
         _betweenHearts = true;
         Helpers.Instance.Delay(_lostHeartDelay, () =>
         {
             _betweenHearts = false;
-            _heart.sortingOrder = 3;
+            _gameplayHeart.ShowHeart();
             SetProgress(_lostHeartInitialProgress);
         });
     }
@@ -152,16 +134,6 @@ public class Fishing : MonoBehaviour
     private void SetProgress(float progress)
     {
         _progress = Mathf.Clamp(progress, 0, 100);
-    }
-
-    private void ChooseHeartDestination()
-    {
-        _heartDestination = Vector3.Lerp(_bottomHeartPosition, _topHeartPosition, Random.Range(0f, 1f));
-    }
-
-    private void MoveHeart()
-    {
-        _heart.transform.position = Vector3.MoveTowards(_heart.transform.position, _heartDestination, _heartMoveSpeed * Time.deltaTime);
     }
 
     private void MoveAffectionBar()

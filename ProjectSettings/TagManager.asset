@@ -38,14 +38,23 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Behind Background
+    uniqueID: 2599302607
+    locked: 0
   - name: ProgressMask
     uniqueID: 1113983991
+    locked: 0
+  - name: Background
+    uniqueID: 1670679827
+    locked: 0
+  - name: HookMask
+    uniqueID: 773902811
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: HookMask
-    uniqueID: 773902811
+  - name: Hearts
+    uniqueID: 3284075779
     locked: 0
   m_RenderingLayers:
   - Default

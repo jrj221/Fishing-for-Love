@@ -32,9 +32,7 @@ public class BackgroundHeart : MonoBehaviour
     private void Update()
     {
         if (_inAnimation) return;
-        if (Random.Range(0, chanceToFade) != 0) return; 
-        Debug.Log("Lucky");
-        // good chance it happens about every 5 seconds. FPS dependent
+        if (Random.Range(0, chanceToFade) != 0) return; // small chance to continue and fade in or out
         _inAnimation = true;
         StartCoroutine(_isVisible ? FadeOut(animationTime) : FadeIn(animationTime));
     }
