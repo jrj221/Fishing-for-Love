@@ -42,7 +42,7 @@ public class Fishing : MonoBehaviour
     private float _bottomHookBounds;
     private float _progress = 20;
     private bool _betweenHearts;
-    private const float ProgressBarMaxScale = 15f;
+    private const float ProgressBarMaxScale = 15f; // How can I have this not hard-coded?
     #endregion
     
     private void OnEnable()
@@ -99,35 +99,23 @@ public class Fishing : MonoBehaviour
 
         if (Mathf.Approximately(_progress, 100))
         {
-            HeartWon();
+            HeartRoundOver(true);
         } else if (Mathf.Approximately(_progress, 0))
         {
-            HeartLost();
+            HeartRoundOver(false);
         }
     }
 
-    private void HeartWon()
+    private void HeartRoundOver(bool wonHeart)
     {
-        GameUIManager.Instance.IncrementHeartCounter();
+        if (wonHeart) GameUIManager.Instance.IncrementHeartCounter();
         _gameplayHeart.HideHeart();
         _betweenHearts = true;
-        Helpers.Instance.Delay(_wonHeartDelay, () =>
+        Helpers.Instance.Delay(wonHeart ? _wonHeartDelay : _lostHeartDelay, () =>
         {
             _betweenHearts = false;
             _gameplayHeart.ShowHeart();
-            SetProgress(_wonHeartInitialProgress);
-        });
-    }
-
-    private void HeartLost()
-    {
-        _gameplayHeart.HideHeart();
-        _betweenHearts = true;
-        Helpers.Instance.Delay(_lostHeartDelay, () =>
-        {
-            _betweenHearts = false;
-            _gameplayHeart.ShowHeart();
-            SetProgress(_lostHeartInitialProgress);
+            SetProgress(wonHeart ?  _wonHeartInitialProgress : _lostHeartInitialProgress);
         });
     }
 
