@@ -959,6 +959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _goodEndingMinHearts: 2
   _midEndingMinHearts: 1
+  fishingGame: {fileID: 0}
 --- !u!4 &603618985 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4685802446605717758, guid: e81ed67e46f104d0cba588ec0a8a4829, type: 3}
@@ -1599,7 +1600,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.1764706, g: 0.20784314, b: 0.6, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2240,7 +2241,7 @@ SpriteRenderer:
   m_SortingOrder: 1
   m_MaskInteraction: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.8207547, g: 0.32907617, b: 0.5988353, a: 1}
+  m_Color: {r: 0.6, g: 0, b: 0.1882353, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2946,12 +2947,12 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 1
   m_MaskInteraction: 1
-  m_Sprite: {fileID: -49532090776259237, guid: db95d27b8b3124ebcab216bf9d30e923, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a8bb15524fc0d49d992af86a97691911, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.22, y: 1.2}
+  m_Size: {x: 0.3, y: 1.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
