@@ -65,9 +65,6 @@ public class Fishing : MonoBehaviour
         Bounds affectionBarBounds = _affectionBar.bounds;
         _topHookBounds = boardBounds.max.y - affectionBarBounds.extents.y;
         _bottomHookBounds = boardBounds.min.y + affectionBarBounds.extents.y;
-        
-        // Debug.DrawLine(new Vector3(5f, _bottomHookBounds, 10f), new Vector3(9f, _bottomHookBounds, 10f), Color.purple, 10f);
-        // Debug.DrawLine(new Vector3(5f, _topHookBounds, 10f), new Vector3(9f, _topHookBounds, 10f), Color.purple, 10f);
     }
     
     private void Update()
