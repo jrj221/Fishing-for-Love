@@ -104,5 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6e8aea5550b440b9f210fa664c0ad1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundHeart
-  animationTime: 4
+  animationTime: 2.5
   chanceToFade: 4500

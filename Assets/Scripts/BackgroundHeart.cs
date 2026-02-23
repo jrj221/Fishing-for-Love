@@ -18,11 +18,21 @@ public class BackgroundHeart : MonoBehaviour
 
     private void Start()
     {
-        InitializeHeartVisibility();
+        InitializeHeart();
     }
 
-    private void InitializeHeartVisibility()
+    private void ApplyRandomSize()
     {
+        float sizeMultiplier = Random.Range(.5f, 1.2f);
+        _heart.transform.localScale = new Vector3(7 * sizeMultiplier, 7 * sizeMultiplier, 1);
+    }
+
+    private void InitializeHeart()
+    {
+        // Initialize size
+        ApplyRandomSize();
+        
+        // Initialize visibility
         _isVisible = Random.Range(0, 3) == 0; // about a quarter of them should spawn visible
         Color color = _heart.color;
         color.a = _isVisible ? 1 : 0;
@@ -46,6 +56,7 @@ public class BackgroundHeart : MonoBehaviour
             _heart.color = color;
             yield return new WaitForSeconds(time / 101);
         }
+        ApplyRandomSize(); // So when it fades back in it appears to be a different heart
         _isVisible = false;
         _inAnimation = false;
     }
