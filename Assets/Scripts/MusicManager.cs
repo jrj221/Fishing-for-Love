@@ -4,9 +4,10 @@ public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance { get; private set; }
     [SerializeField] private AudioSource _backgroundMusicPlayer;
-    [SerializeField] private AudioSource _uIMusicPlayer;
+    [SerializeField] private AudioSource _SFXMusicPlayer;
     [SerializeField] private AudioClip _beethoven;
     [SerializeField] private AudioClip _click;
+    [SerializeField] private AudioClip _heartFlourish;
 
     private void Awake()
     {
@@ -21,6 +22,11 @@ public class MusicManager : MonoBehaviour
     
     public void PlayClick()
     {
-        _uIMusicPlayer.PlayOneShot(_click);
+        _SFXMusicPlayer.PlayOneShot(_click);
+    }
+
+    public void PlayHeartFlourish()
+    {
+        _SFXMusicPlayer.PlayOneShot(_heartFlourish);
     }
 }

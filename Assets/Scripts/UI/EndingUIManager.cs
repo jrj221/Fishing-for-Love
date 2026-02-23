@@ -33,9 +33,8 @@ public class EndingUIManager : UIManger
         _restartGameCallback = (evt) => GameManager.Instance.RestartGame();
     }
 
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         _restartButton.RegisterCallback(_restartGameCallback);
     }
 
@@ -45,8 +44,9 @@ public class EndingUIManager : UIManger
         _restartButton.UnregisterCallback(_restartGameCallback);
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         HideUI();
         HideElements();
     }

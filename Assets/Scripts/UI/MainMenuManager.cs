@@ -27,8 +27,9 @@ public class MainMenuManager : UIManger
         _tutorialButton = GetElement<Button>("TutorialButton");
     }
     
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         HideElement(_tutorialText);
         HideElement(_tutorialTitle);
         _tutorialText.text = "You are a mere fisherman, trying to woo the girl of your dreams by <i>Fishing for Love</i> in the <b>Sea of Hearts</b>. " +
@@ -38,9 +39,8 @@ public class MainMenuManager : UIManger
                              "Capture as many as possible before time runs out!";
     }
     
-    protected override void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         _startButton.RegisterCallback(_startGameCallback);
         _tutorialButton.RegisterCallback<ClickEvent>(Tutorial);
     }

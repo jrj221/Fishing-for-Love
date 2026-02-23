@@ -15,14 +15,14 @@ public class UIManger : MonoBehaviour
         _playButtonClick = (evt) => MusicManager.Instance.PlayClick();
     }
 
-    protected virtual void OnEnable()
+    protected virtual void Start()
     {
-        _document.rootVisualElement.RegisterCallback(_playButtonClick);
+        _document.rootVisualElement.RegisterCallback(_playButtonClick); // rootVisualElement doesn't exist in OnEnable 
     }
     
     protected virtual void OnDisable()
     {
-        _document.rootVisualElement.UnregisterCallback(_playButtonClick);
+        _document.rootVisualElement?.UnregisterCallback(_playButtonClick);
     }
 
     public void ShowUI()

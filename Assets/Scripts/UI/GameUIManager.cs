@@ -28,8 +28,9 @@ public class GameUIManager : UIManger
         ResetTimeLeft();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         HideUI();
         HideElement(_endNotice);
         HideElement(_gameStartCountdown);

@@ -96,6 +96,7 @@ public class Fishing : MonoBehaviour
 
         if (Mathf.Approximately(_progress, 100))
         {
+            MusicManager.Instance.PlayHeartFlourish();
             HeartRoundOver(true);
         } else if (Mathf.Approximately(_progress, 0))
         {
