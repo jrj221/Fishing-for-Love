@@ -24,12 +24,6 @@ public class MainMenuManager : UIManger
         _tutorialButton = GetElement<Button>("TutorialButton");
     }
     
-    // You are a mere fisherman, trying to woo the girl of your dreams by Fishing for Love in the Sea of Hearts.
-    //  Get enough, and you may be successful in winning her over.
-    //  Hold SPACE to reel in your hook, otherwise it will fall on its own.
-    //  Keep your hook on a heart for long enough, and you'll capture it.
-    //  Capture as many as possible before time runs out!
-
     private void Start()
     {
         HideElement(_tutorialText);

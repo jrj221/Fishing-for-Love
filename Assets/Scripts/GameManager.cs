@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _midEndingMinHearts;
     [SerializeField] private Fishing fishingGame;
     public bool GameIsOver { get; private set; }
+    public bool GameStarted { get; private set; }
     public static GameManager Instance { get; private set; }
     
     private void Start()
@@ -19,11 +20,14 @@ public class GameManager : MonoBehaviour
         MainMenuManager.Instance.HideUI();
         Time.timeScale = 1;
         GameUIManager.Instance.ShowUI();
+        GameUIManager.Instance.GameStartCountdown();
+        Helpers.Instance.Delay(3f, () => { GameStarted = true; });
     }
 
     public void RestartGame()
     {
         GameIsOver = false;
+        GameStarted = false;
         EndingUIManager.Instance.HideUI();
         EndingUIManager.Instance.HideElements();
         GameUIManager.Instance.ResetTimeLeft();
@@ -31,6 +35,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         GameUIManager.Instance.ShowUI();
         GameUIManager.Instance.ResetHeartCounter();
+        GameUIManager.Instance.GameStartCountdown();
+        Helpers.Instance.Delay(3f, () => { GameStarted = true; });
     }
 
     public void EndGame(int heartCount)

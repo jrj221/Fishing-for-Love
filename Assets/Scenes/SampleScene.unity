@@ -885,6 +885,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManagerUI
   _gameLength: 10
+  _hook: {fileID: 1784939073}
+  _heart: {fileID: 1020686968}
+  _progressBar: {fileID: 1172675009}
 --- !u!114 &543710378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,7 +962,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _goodEndingMinHearts: 2
   _midEndingMinHearts: 1
-  fishingGame: {fileID: 0}
+  fishingGame: {fileID: 1351693658}
 --- !u!4 &603618985 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4685802446605717758, guid: e81ed67e46f104d0cba588ec0a8a4829, type: 3}
