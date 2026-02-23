@@ -4,7 +4,9 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private int _goodEndingMinHearts;
     [SerializeField] private int _midEndingMinHearts;
+    public bool GameIsOver { get; private set; }
     public static GameManager Instance { get; private set; }
+    
     private void Start()
     {
         Instance = this;
@@ -18,20 +20,32 @@ public class GameManager : MonoBehaviour
         GameUIManager.Instance.ShowUI();
     }
 
-    public void EndGame(float heartCount)
+    public void EndGame(int heartCount)
     {
         Time.timeScale = 0;
-        GameUIManager.Instance.HideUI();
+        GameIsOver = true;
+        // Delayed so you see the Time's Up message for a second
+        Helpers.Instance.Delay(5f, () =>
+        {
+            EndingUIManager.Ending ending = DetermineEnding(heartCount);
+            GameUIManager.Instance.HideUI();
+            EndingUIManager.Instance.ShowEnding(ending, heartCount);
+        });
+        
+    }
+
+    private EndingUIManager.Ending DetermineEnding(int heartCount)
+    {
         if (heartCount >= _goodEndingMinHearts)
         {
-            EndingUIManager.Instance.ShowEnding(EndingUIManager.Ending.Good);
+            return EndingUIManager.Ending.Good;
         } else if (heartCount >= _midEndingMinHearts)
         {
-            EndingUIManager.Instance.ShowEnding(EndingUIManager.Ending.Mid);
+            return EndingUIManager.Ending.Mid;
         }
         else
         {
-            EndingUIManager.Instance.ShowEnding(EndingUIManager.Ending.Bad);
+            return EndingUIManager.Ending.Bad;
         }
     }
 }

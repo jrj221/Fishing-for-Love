@@ -19,7 +19,7 @@ public class Helpers : MonoBehaviour
 
     private IEnumerator DelayRoutine(float time, Action callback)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
         callback();
     }
 }

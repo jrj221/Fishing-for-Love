@@ -8,6 +8,7 @@ public class GameUIManager : UIManger
     [SerializeField] private float _gameLength;
     private Label _timer;
     private Label _heartCounter;
+    private Label _endNotice;
     private float _timeLeft;
     private int _heartCount;
     public static GameUIManager Instance { get; private set; }
@@ -18,6 +19,7 @@ public class GameUIManager : UIManger
         Instance = this;
         _timer = GetElement<Label>("Timer");
         _heartCounter = GetElement<Label>("HeartCounter");
+        _endNotice = GetElement<Label>("EndNotice");
         _timeLeft = _gameLength;
     }
 
@@ -28,6 +30,7 @@ public class GameUIManager : UIManger
 
     private void Update()
     {
+        if (GameManager.Instance.GameIsOver) return;
         Countdown();
         UpdateTimer();
     }
@@ -37,6 +40,7 @@ public class GameUIManager : UIManger
         _timeLeft -= Time.deltaTime;
         if (_timeLeft <= 0)
         {
+            ShowElement(_endNotice);
             GameManager.Instance.EndGame(_heartCount);
         }
     }

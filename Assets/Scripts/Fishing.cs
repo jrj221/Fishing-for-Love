@@ -72,7 +72,7 @@ public class Fishing : MonoBehaviour
     
     private void Update()
     {
-        if (_betweenHearts) return; // game effectively pauses during delay between hearts
+        if (_betweenHearts || GameManager.Instance.GameIsOver) return; // game effectively pauses during delay between hearts
         MoveAffectionBar();
         UpdateProgress();
         UpdateProgressBar();
