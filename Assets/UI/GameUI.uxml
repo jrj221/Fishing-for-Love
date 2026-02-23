@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/GameUI.uss?fileID=7433441132597879392&amp;guid=579cb6f069ffb4df0a1e055363492e8b&amp;type=3#GameUI"/>
     <ui:VisualElement name="Container" style="flex-grow: 1; flex-direction: row;">
-        <ui:Label text="0" name="HeartCounter" style="font-size: 66px; width: 30%; align-content: auto; margin-left: 69px; position: absolute; padding-top: 43px; color: rgb(255, 255, 255); -unity-font-style: normal; margin-top: 14px;"/>
-        <ui:Label text="60s" name="Timer" parse-escape-sequences="true" style="width: 30%; font-size: 61px; white-space: pre; margin-left: 952px; position: absolute; color: rgb(128, 0, 0); padding-top: 26px;"/>
+        <ui:Label text="0" name="HeartCounter" style="font-size: 50px; width: 30%; align-content: auto; margin-left: 69px; position: absolute; padding-top: 0; color: rgb(255, 255, 255); -unity-font-style: normal; margin-top: 35px; -unity-font-definition: url(&quot;project://database/Assets/UI/Fonts/RockSalt-Regular.ttf?fileID=12800000&amp;guid=587d1c9dce3bb4ac1864f16aaf7d413f&amp;type=3#RockSalt-Regular&quot;); padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+        <ui:Label text="60s" name="Timer" parse-escape-sequences="true" style="width: 30%; font-size: 50px; white-space: pre; margin-left: 952px; position: absolute; color: rgb(156, 75, 10); padding-top: 26px; -unity-font-definition: url(&quot;project://database/Assets/UI/Fonts/RockSalt-Regular.ttf?fileID=12800000&amp;guid=587d1c9dce3bb4ac1864f16aaf7d413f&amp;type=3#RockSalt-Regular&quot;); margin-top: -19px;"/>
     </ui:VisualElement>
 </ui:UXML>
