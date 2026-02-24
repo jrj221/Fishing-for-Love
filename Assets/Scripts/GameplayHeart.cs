@@ -52,11 +52,13 @@ public class GameplayHeart : MonoBehaviour
     
     private void ChooseHeartDestination()
     {
+        Debug.Log("Choosing Heart Destination");
         _heartDestination = Vector3.Lerp(_bottomHeartPosition, _topHeartPosition, Random.Range(0f, 1f));
     }
 
     private void MoveHeart()
     {
+        Debug.Log("Moving Heart?");
         _heart.transform.position = Vector3.MoveTowards(_heart.transform.position, _heartDestination, HeartMoveSpeed * Time.deltaTime);
     }
 

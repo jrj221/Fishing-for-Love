@@ -24,8 +24,11 @@ public class GameManager : MonoBehaviour
         GameUIManager.Instance.GameLength = gameLength;
         _gameplayHeart.HeartMoveSpeed = heartSpeed;
         _gameplayHeart.ChooseHeartDestinationDelay = heartDelaySpeed;
-        GameUIManager.Instance.GameStartCountdown();
-        Helpers.Instance.Delay(3f, () => { GameStarted = true; });
+        // GameUIManager.Instance.GameStartCountdown();
+        // Helpers.Instance.Delay(3f, () => { GameStarted = true; });
+
+        //Going to try seeing if we can get rid of the error where the first game we play we automatically lose.
+        RestartGame();
     }
 
     public void RestartGame()
