@@ -1012,8 +1012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e3ee9964a834f8fa6c61f634576cf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  _goodEndingMinHearts: 2
-  _midEndingMinHearts: 1
+  _goodEndingMinHearts: 7
+  _midEndingMinHearts: 4
   fishingGame: {fileID: 1351693658}
   _gameplayHeart: {fileID: 1020686969}
 --- !u!4 &603618985 stripped
@@ -2917,13 +2917,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12e894856d914d19a35ae588a7837ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
-  _easyGameLength: 75
+  _easyGameLength: 60
   _easyHeartSpeed: 2
   _easyHeartDelaySpeed: 1
   _mediumGameLength: 60
   _mediumHeartSpeed: 4
   _mediumHeartDelaySpeed: 0.5
-  _hardGameLength: 5
+  _hardGameLength: 60
   _hardHeartSpeed: 6
   _hardHeartDelaySpeed: 0.3
 --- !u!114 &1548512891
