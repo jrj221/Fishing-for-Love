@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         GameIsOver = true; 
         _gameplayHeart.HideHeart();
+        GameUIManager.Instance.HideTimer();
         // Delayed so you see the Time's Up message for a second
         Helpers.Instance.Delay(3f, () =>
         {

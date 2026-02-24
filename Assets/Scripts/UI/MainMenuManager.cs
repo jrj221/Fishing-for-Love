@@ -5,6 +5,24 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(UIDocument))]
 public class MainMenuManager : UIManger
 {
+    #region Difficulty References
+    [Header("Easy Difficulty")]
+    [SerializeField] private float _easyGameLength;
+    [SerializeField] private float _easyHeartSpeed;
+    [SerializeField] private float _easyHeartDelaySpeed;
+    
+    [Header("Medium Difficulty")]
+    [SerializeField] private float _mediumGameLength;
+    [SerializeField] private float _mediumHeartSpeed;
+    [SerializeField] private float _mediumHeartDelaySpeed;
+    
+    [Header("Hard Difficulty")]
+    [SerializeField] private float _hardGameLength;
+    [SerializeField] private float _hardHeartSpeed;
+    [SerializeField] private float _hardHeartDelaySpeed;
+    #endregion
+    
+    #region UI Elements
     private Label _title;
     private Button _startButton;
     private Button _easyDifficultyButton;
@@ -14,6 +32,12 @@ public class MainMenuManager : UIManger
     private Button _tutorialButton;
     private Label _tutorialTitle;
     private Label _tutorialText;
+    #endregion
+
+    private EventCallback<ClickEvent> _easyDifficulty;
+    private EventCallback<ClickEvent> _mediumDifficulty;
+    private EventCallback<ClickEvent> _hardDifficulty;
+    
     public static MainMenuManager Instance { get; private set; }
     
     protected override void Awake()
@@ -29,6 +53,10 @@ public class MainMenuManager : UIManger
         _hardDifficultyButton = GetElement<Button>("HardDifficultyButton");
         _difficultySelectTitle = GetElement<Label>("DifficultySelectTitle");
         _tutorialButton = GetElement<Button>("TutorialButton");
+        
+        _easyDifficulty = (evt) => StartGame(_easyGameLength, _easyHeartSpeed, _easyHeartDelaySpeed);
+        _mediumDifficulty = (evt) => StartGame(_mediumGameLength, _mediumHeartSpeed, _mediumHeartDelaySpeed);
+        _hardDifficulty = (evt) => StartGame(_hardGameLength, _hardHeartSpeed, _hardHeartDelaySpeed);
     }
     
     protected override void Start()
@@ -51,9 +79,9 @@ public class MainMenuManager : UIManger
     {
         _startButton.RegisterCallback<ClickEvent>(DifficultySelect);
         _tutorialButton.RegisterCallback<ClickEvent>(Tutorial);
-        _easyDifficultyButton.RegisterCallback<ClickEvent>(Easy);
-        _mediumDifficultyButton.RegisterCallback<ClickEvent>(Medium);
-        _hardDifficultyButton.RegisterCallback<ClickEvent>(Hard);
+        _easyDifficultyButton.RegisterCallback(_easyDifficulty);
+        _mediumDifficultyButton.RegisterCallback(_mediumDifficulty);
+        _hardDifficultyButton.RegisterCallback(_hardDifficulty);
     }
 
     protected override void OnDisable()
@@ -61,9 +89,9 @@ public class MainMenuManager : UIManger
         base.OnDisable();
         _startButton.UnregisterCallback<ClickEvent>(DifficultySelect);
         _tutorialButton.UnregisterCallback<ClickEvent>(Tutorial);
-        _easyDifficultyButton.UnregisterCallback<ClickEvent>(Easy);
-        _mediumDifficultyButton.UnregisterCallback<ClickEvent>(Medium);
-        _hardDifficultyButton.UnregisterCallback<ClickEvent>(Hard);
+        _easyDifficultyButton.UnregisterCallback(_easyDifficulty);
+        _mediumDifficultyButton.UnregisterCallback(_mediumDifficulty);
+        _hardDifficultyButton.UnregisterCallback(_hardDifficulty);
     }
 
     private void StartGame(float gameLength, float heartSpeed, float heartDelaySpeed)
@@ -86,21 +114,6 @@ public class MainMenuManager : UIManger
         ShowElement(_mediumDifficultyButton);
         ShowElement(_hardDifficultyButton);
         ShowElement(_difficultySelectTitle);
-    }
-
-    private void Easy(ClickEvent evt)
-    {
-        StartGame(90f, 2f, 1f);
-    }
-    
-    private void Medium(ClickEvent evt)
-    {
-        StartGame(60f, 4f, .7f);
-    }
-    
-    private void Hard(ClickEvent evt)
-    {
-        StartGame(45f, 6f, .2f);
     }
 
     private void Tutorial(ClickEvent evt)
