@@ -43,6 +43,14 @@ public class GameUIManager : UIManger
         UpdateTimer();
     }
 
+    public void BeginGame()
+    {
+        ShowUI();
+        HideTimer();
+        ResetHeartCounter();
+        GameStartCountdown();
+    }
+
     public void ResetTimeLeft()
     {
         _timeLeft = GameLength;

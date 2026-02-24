@@ -11,7 +11,9 @@ public class EndingUIManager : UIManger
     private Label _endingDesc;
     private Label _heartCountNotice;
     private Button _restartButton;
+    private Button _backToMenuButton;
     private EventCallback<ClickEvent> _restartGameCallback;
+    private EventCallback<ClickEvent> _backToMenuCallback;
     
     public enum Ending
     {
@@ -27,35 +29,53 @@ public class EndingUIManager : UIManger
         _endingDesc =  GetElement<Label>("EndingDesc");
         _heartCountNotice = GetElement<Label>("HeartCountNotice");
         _restartButton = GetElement<Button>("RestartButton");
+        _backToMenuButton = GetElement<Button>("BackToMenuButton");
         _goodEnding = GetElement<Image>("GoodEnding");
         _midEnding = GetElement<Image>("MidEnding");
         _badEnding = GetElement<Image>("BadEnding");
-        _restartGameCallback = (evt) => GameManager.Instance.RestartGame();
+        _restartGameCallback = (evt) =>
+        {
+            ResetEnding();
+            GameManager.Instance.RestartGame();
+        };
+        _backToMenuCallback = (evt) =>
+        {
+            ResetEnding();
+            GameManager.Instance.BackToMenu();
+        };
     }
 
     private void OnEnable()
     {
         _restartButton.RegisterCallback(_restartGameCallback);
+        _backToMenuButton.RegisterCallback(_backToMenuCallback);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         _restartButton.UnregisterCallback(_restartGameCallback);
+        _backToMenuButton.UnregisterCallback(_backToMenuCallback);
     }
 
     protected override void Start()
     {
         base.Start();
-        HideUI();
-        HideElements();
+        ResetEnding();
     }
 
-    public void HideElements()
+    private void ResetEnding()
+    {
+        HideUI();
+        HideAllElements();
+    }
+
+    public void HideAllElements()
     {
         HideElement(_heartCountNotice);
         HideElement(_endingDesc);
         HideElement(_restartButton);
+        HideElement(_backToMenuButton);
         HideElement(_goodEnding);
         HideElement(_midEnding);
         HideElement(_badEnding);
@@ -63,10 +83,11 @@ public class EndingUIManager : UIManger
     
     public void ShowEnding(Ending ending, int heartCount)
     {
+        HideAllElements();
         ShowUI();
-        ApplyEndingText(ending, heartCount);
-        ElementFadeIn(_heartCountNotice, 2f);
-        ElementFadeIn(_endingDesc, 2f);
+        var descriptionTime = 7f;
+        SetDescriptionState(descriptionTime, ending, heartCount);
+        
         Image endingImage;
         switch (ending)
         {
@@ -80,13 +101,19 @@ public class EndingUIManager : UIManger
                 endingImage = _badEnding;
                 break;
         }
-        Helpers.Instance.Delay(5f, () =>
+
+        var imageFadeInTime = 2f;
+        var buttonsFadeInDelay = 2f;
+        var buttonsFadeInTime = 2f;
+        Helpers.Instance.Delay(descriptionTime, () =>
         {
-            ElementFadeOut(_heartCountNotice, 2f);
-            ElementFadeOut(_endingDesc, 2f);
-            Helpers.Instance.Delay(2f, () => ElementFadeIn(endingImage, 2f));
+            ElementFadeIn(endingImage, imageFadeInTime);
+            Helpers.Instance.Delay(imageFadeInTime + buttonsFadeInDelay, () =>
+            {
+                ElementFadeIn(_restartButton, buttonsFadeInTime);
+                ElementFadeIn(_backToMenuButton, buttonsFadeInTime);
+            });
         });
-        Helpers.Instance.Delay(10f, () => ElementFadeIn(_restartButton, 2f));
     }
     
     private void ApplyEndingText(Ending ending, int heartCount)
@@ -105,5 +132,23 @@ public class EndingUIManager : UIManger
                 _endingDesc.text = "Yeah... better luck next time...";
                 break;
         }
+    }
+
+    private void SetDescriptionState(float time, Ending ending,  int heartCount)
+    {
+        time = Mathf.Min(7f, time); // At least 2 seconds fade in, 3 to read the text, and 2 to fade out
+        float fadeTime = (time - 3) / 2;
+        
+        // Fade in...
+        ApplyEndingText(ending, heartCount);
+        ElementFadeIn(_heartCountNotice, fadeTime);
+        ElementFadeIn(_endingDesc, fadeTime);
+        
+        // Hold for a few seconds... then fade out...
+        Helpers.Instance.Delay(time - (fadeTime * 2), () =>
+        {
+            ElementFadeOut(_heartCountNotice, fadeTime);
+            ElementFadeOut(_endingDesc, fadeTime);
+        });
     }
 }

@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Ending.uss?fileID=7433441132597879392&amp;guid=3b00efe0d284d412791ac9937f40ff78&amp;type=3#Ending"/>
+    <Style src="project://database/Assets/UI/Stylesheets/Ending.uss?fileID=7433441132597879392&amp;guid=3b00efe0d284d412791ac9937f40ff78&amp;type=3#Ending"/>
     <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(144, 0, 0);">
         <ui:Label text="You got __ hearts!" name="HeartCountNotice" style="font-size: 75px; align-self: center; margin-top: 363px; display: flex;"/>
         <ui:Label text="I think..." name="EndingDesc" style="font-size: 75px; align-self: center; display: flex;"/>
@@ -7,5 +7,6 @@
         <ui:Image name="MidEnding" source="project://database/Assets/Sprites/midEnding.png?fileID=3323700888894534912&amp;guid=51dcc1c9579cb4c819fee91a2f02910b&amp;type=3#midEnding_0" enabled="false" style="width: 100%; height: 100%; visibility: visible; display: none; opacity: 1;"/>
         <ui:Image name="BadEnding" source="project://database/Assets/Sprites/badEnding.png?fileID=-2455488159657730429&amp;guid=c54011a8d407b47878f4a009ec257e04&amp;type=3#badEnding_0" enabled="false" style="width: 100%; height: 100%; display: none; opacity: 1;"/>
         <ui:Button text="Restart" name="RestartButton" class="button"/>
+        <ui:Button text="Back to Menu" name="BackToMenuButton" class="button" style="margin-top: 228px;"/>
     </ui:VisualElement>
 </ui:UXML>

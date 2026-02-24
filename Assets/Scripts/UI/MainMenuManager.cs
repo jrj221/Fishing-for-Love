@@ -62,12 +62,7 @@ public class MainMenuManager : UIManger
     protected override void Start()
     {
         base.Start();
-        HideElement(_tutorialText);
-        HideElement(_tutorialTitle);
-        HideElement(_easyDifficultyButton);
-        HideElement(_mediumDifficultyButton);
-        HideElement(_hardDifficultyButton);
-        HideElement(_difficultySelectTitle);
+        SetMainMenuState();
         _tutorialText.text = "You are a mere fisherman, trying to woo the girl of your dreams by <i>Fishing for Love</i> in the <b>Sea of Hearts</b>. " +
                              "Get enough, and you may be successful in winning her over. " +
                              "Hold <b>SPACE</b> to reel in your hook, otherwise it will fall on its own. " +
@@ -96,31 +91,54 @@ public class MainMenuManager : UIManger
 
     private void StartGame(float gameLength, float heartSpeed, float heartDelaySpeed)
     {
-        HideElement(_easyDifficultyButton);
-        HideElement(_mediumDifficultyButton);
-        HideElement(_hardDifficultyButton);
-        HideElement(_difficultySelectTitle);
+        // SetMainMenuState(); // should this be done here?
+        HideUI();
         GameManager.Instance.StartGame(gameLength,  heartSpeed, heartDelaySpeed);
     }
 
     private void DifficultySelect(ClickEvent evt)
     {
-        HideElement(_title);
-        HideElement(_tutorialButton);
-        HideElement(_tutorialTitle);
-        HideElement(_tutorialText);
-        HideElement(_startButton);
-        ShowElement(_easyDifficultyButton);
-        ShowElement(_mediumDifficultyButton);
-        ShowElement(_hardDifficultyButton);
-        ShowElement(_difficultySelectTitle);
+        SetDifficultySelectState();
     }
 
     private void Tutorial(ClickEvent evt)
     {
-        HideElement(_title);
-        HideElement(_tutorialButton);
-        ShowElement(_tutorialTitle);
-        ShowElement(_tutorialText);
+        SetTutorialState();
+    }
+
+    public void SetMainMenuState()
+    {
+        foreach (VisualElement element in new VisualElement[] { _title, _startButton, _tutorialButton }) 
+        {
+            ShowElement(element);
+        }
+        foreach (VisualElement element in new VisualElement[] { _tutorialTitle, _tutorialText, _easyDifficultyButton, _mediumDifficultyButton, _hardDifficultyButton, _difficultySelectTitle }) 
+        {
+            HideElement(element);
+        }
+    }
+
+    private void SetTutorialState()
+    {
+        foreach (VisualElement element in new VisualElement[] { _tutorialTitle, _tutorialText, _startButton }) 
+        {
+            ShowElement(element);
+        }
+        foreach (VisualElement element in new VisualElement[] { _title, _tutorialButton, _easyDifficultyButton, _mediumDifficultyButton, _hardDifficultyButton, _difficultySelectTitle }) 
+        {
+            HideElement(element);
+        }
+    }
+
+    private void SetDifficultySelectState()
+    {
+        foreach (VisualElement element in new VisualElement[] { _easyDifficultyButton, _mediumDifficultyButton, _hardDifficultyButton, _difficultySelectTitle }) 
+        {
+            ShowElement(element);
+        }
+        foreach (VisualElement element in new VisualElement[] { _title, _tutorialButton, _startButton, _tutorialText, _tutorialTitle }) 
+        {
+            HideElement(element);
+        }
     }
 }

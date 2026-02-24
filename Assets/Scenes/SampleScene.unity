@@ -2917,6 +2917,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12e894856d914d19a35ae588a7837ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
+  _easyGameLength: 75
+  _easyHeartSpeed: 2
+  _easyHeartDelaySpeed: 1
+  _mediumGameLength: 60
+  _mediumHeartSpeed: 4
+  _mediumHeartDelaySpeed: 0.5
+  _hardGameLength: 5
+  _hardHeartSpeed: 6
+  _hardHeartDelaySpeed: 0.3
 --- !u!114 &1548512891
 MonoBehaviour:
   m_ObjectHideFlags: 0

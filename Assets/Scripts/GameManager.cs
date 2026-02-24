@@ -18,8 +18,6 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(float gameLength, float heartSpeed, float heartChangeDestinationRate)
     {
-        MainMenuManager.Instance.HideUI();
-        Time.timeScale = 1;
         GameUIManager.Instance.ShowUI();
         GameUIManager.Instance.GameLength = gameLength;
         _gameplayHeart.HeartMoveSpeed = heartSpeed;
@@ -29,22 +27,23 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        Time.timeScale = 1;
         GameIsOver = false;
         GameStarted = false;
-        EndingUIManager.Instance.HideUI();
-        EndingUIManager.Instance.HideElements();
         GameUIManager.Instance.ResetTimeLeft();
         fishingGame.SetProgress(20f);
-        Time.timeScale = 1;
-        GameUIManager.Instance.ShowUI();
-        GameUIManager.Instance.HideTimer();
-        GameUIManager.Instance.ResetHeartCounter();
-        GameUIManager.Instance.GameStartCountdown();
-        Helpers.Instance.Delay(3f, () =>
+        GameUIManager.Instance.BeginGame();
+        Helpers.Instance.Delay(3f, () => // Delayed for the Countdown
         {
             GameStarted = true;
             GameUIManager.Instance.ShowTimer();
         });
+    }
+
+    public void BackToMenu()
+    {
+        MainMenuManager.Instance.ShowUI();
+        MainMenuManager.Instance.SetMainMenuState();
     }
 
     public void EndGame(int heartCount)
