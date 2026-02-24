@@ -16,18 +16,14 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    public void StartGame(float gameLength, float heartSpeed, float heartDelaySpeed)
+    public void StartGame(float gameLength, float heartSpeed, float heartChangeDestinationRate)
     {
         MainMenuManager.Instance.HideUI();
         Time.timeScale = 1;
         GameUIManager.Instance.ShowUI();
         GameUIManager.Instance.GameLength = gameLength;
         _gameplayHeart.HeartMoveSpeed = heartSpeed;
-        _gameplayHeart.ChooseHeartDestinationDelay = heartDelaySpeed;
-        // GameUIManager.Instance.GameStartCountdown();
-        // Helpers.Instance.Delay(3f, () => { GameStarted = true; });
-
-        //Going to try seeing if we can get rid of the error where the first game we play we automatically lose.
+        _gameplayHeart.StartHeartChooseDestinationLoop(heartChangeDestinationRate);
         RestartGame();
     }
 
@@ -41,15 +37,21 @@ public class GameManager : MonoBehaviour
         fishingGame.SetProgress(20f);
         Time.timeScale = 1;
         GameUIManager.Instance.ShowUI();
+        GameUIManager.Instance.HideTimer();
         GameUIManager.Instance.ResetHeartCounter();
         GameUIManager.Instance.GameStartCountdown();
-        Helpers.Instance.Delay(3f, () => { GameStarted = true; });
+        Helpers.Instance.Delay(3f, () =>
+        {
+            GameStarted = true;
+            GameUIManager.Instance.ShowTimer();
+        });
     }
 
     public void EndGame(int heartCount)
     {
         Time.timeScale = 0;
         GameIsOver = true; 
+        _gameplayHeart.HideHeart();
         // Delayed so you see the Time's Up message for a second
         Helpers.Instance.Delay(3f, () =>
         {

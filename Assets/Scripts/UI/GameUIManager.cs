@@ -59,6 +59,16 @@ public class GameUIManager : UIManger
         }
     }
 
+    public void ShowTimer()
+    {
+        ShowElement(_timer);
+    }
+
+    public void HideTimer()
+    {
+        HideElement(_timer);
+    }
+
     public void GameStartCountdown()
     {
         _hook.enabled = false;
